@@ -1,0 +1,118 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* stylelint-disable*/
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section{display:block}html{line-height:1}body{line-height:inherit}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+/* stylelint-enable */
+
+/*
+http://www.modularscale.com/?22&px&1.125&web&text
+*/
+
+html {
+  font-size: 1.125em;     /*18px / 16px = 1.125em*/
+  line-height: 1.222em;   /*22px is 1 gridline at 18px | 22px / 18px = 1.222em*/
+  background-color: #140941;
+  color: #60CEC3;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: 1.9531111em;  /*35.156px / 18px = 1.9531111em*/
+  line-height: 1.251564456em; /*44px gridline at 35.156px | 44px / 35.156px = 1.251564456em*/
+  font-weight: 600;
+  padding-bottom: 0.6257822278em;
+}
+
+/*h2 {*/
+  /*font-size: 1.5625em;     !*28.125px /18px = 1.5625em*!*/
+  /*line-height: 1.1733333em; !*33px = 1.5 gridline at 28.125px*!*/
+  /*padding-top: 0.78222222em; !*One gridline to top | 22px / 28.125px = 0.78222222em*!*/
+  /*font-weight: 600;*/
+/*}*/
+
+/*h3 {*/
+  /*font-size: 1.25em; !*22.5px / 18px = 1.25em*!*/
+  /*line-height: 1.2222222em; !*1.25 gridline at 22.5px | 27.5px / 22.5px = 1.222222em*!*/
+  /*padding-top: 0.488888888em; !*Half gridline | 11px / 22.5px = 0.488888888em*!*/
+/*}*/
+
+input,
+textarea {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  padding: 0;
+  border: 0;
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+  -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+  box-sizing: border-box;
+}
+
+#w-text {
+  font-size: 1.25em; /*22.5px / 18px = 1.25em*/
+  line-height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
+  height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
+  border-left: 0.2272727273em solid #EEEEEE;
+  border-right: 0.2272727273em solid #EEEEEE;
+  background: #EEEEEE;
+  color: #222;
+  font-weight: 500;
+  resize: none;
+}
+
+#w-submit {
+  font-size: 1.25em; /*22.5px / 18px = 1.25em*/
+  line-height: 1.9555555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
+  height: 1.95555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
+  background: #FF366A;
+  color: #140941;
+  font-weight: 600;
+  margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
+}
+
+#page {
+  padding: 1.222em; /*one gridline*/
+}
+
+/* 480px @ 16px/em*/
+@media screen and (min-width: 30em) {
+
+  #page {
+    padding-left: 3.33333%;
+    padding-right: 3.33333%;
+  }
+}
+
+/* 600px @ 16px/em*/
+/* Based on an 8 column grid with 16px gutters*/
+@media screen and (min-width: 37.5em) {
+
+  #page {
+    padding-left: 2.66667%;
+    padding-right: 2.66667%;
+  }
+}
+
+/* 840px @ 16px/em*/
+/* Based on a 12 column grid with 24px gutters*/
+@media screen and (min-width: 52.5em) {
+  #page {
+    padding-left: 19.04762%;
+    padding-right: 19.04762%;
+  }
+}
+
+/* 1440px @ 16px/em*/
+/* Based on a 12 column grid with 24px gutters*/
+@media screen and (min-width: 90em) {
+  #page {
+    padding-left: 26.25%;
+    padding-right: 26.25%;
+  }
+}
+
