@@ -1,25 +1,20 @@
 $.noConflict();
 jQuery(function($) {
   $(document).ready(function() {
-    var failure = function() {
-      console.log('Error');
-    };
-
-    var getWeather = function(loc) {
+    function getWeather(loc) {
       if(loc.lat!=='' && loc.lng!=='') {
         $.when($.ajax({
           type: 'GET',
           url: '/weather/'+loc.lat+','+loc.lng
         })).then(function(data) {
-            var current = data.currently;
-            var curTemp = current.temperature;
-            console.log(curTemp)
+          var current = data.currently;
+          var curTemp = current.temperature;
+          console.log(curTemp);
         }, failure);
       }
-    };
+    }
 
-    var getCoordinates = function(callback) {
-      var address = ($('#w-text').val());
+    function getCoordinates(address, callback) {
       if(address.length > 0) {
         $.when($.ajax({
           type: 'GET',
@@ -31,12 +26,16 @@ jQuery(function($) {
           }
         }, failure);
       }
-    };
+    }
 
     $('#w-form').on('submit', function(e) {
-      getCoordinates(getWeather);
+      var address = ($('#w-text').val());
+      getCoordinates(address, getWeather);
       e.preventDefault();
     });
-
   });
+
+  function failure() {
+    console.log('Error');
+  }
 });
