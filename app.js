@@ -36,7 +36,7 @@ app.get('/coordinates/:address', function(request, response) {
   var addressQuery = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address+
     '&key='+mapsKey;
   httpget(addressQuery, function(data) {
-    if(data.startsWith('Errors')) {
+    if(JSON.stringify(data).startsWith('Error')) {
       response.status(404).send(data);
     } else {
       response.send(data);
@@ -51,7 +51,7 @@ app.get('/weather/:lat,:lng', function(request, response){
   var weatherQuery = 'https://api.darksky.net/forecast/'+weatherKey+'/'+
     lat+','+lng+'?exclude=minutely,hourly,flags';
   httpget(weatherQuery, function(data) {
-    if(data.startsWith('Errors')) {
+    if(JSON.stringify(data).startsWith('Error')) {
       response.status(404).send(data);
     } else {
       response.send(data);
