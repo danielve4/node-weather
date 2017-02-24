@@ -38,6 +38,46 @@ function getWeather(lat, lng, callback) {
   httpget(weatherQuery, callback);
 }
 
+function generateJSONWeather(weatherJSON, callback) {
+  var weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var now = weatherJSON.currently;
+  var daily = weatherJSON.daily;
+  var convertedDay;
+  var weatherJSON = {
+    'currently': {
+      'summary': now.summary,
+      'precipProbability': now.precipProbability,
+      'precipType': now.precipType,
+      'temperature': now.temperature,
+      'apparentTemperature': now.apparentTemperature
+    },
+    'nextDays': {
+      'summary': daily.summary,
+      'daily': []
+    },
+    'chartData': {
+      'days':[],
+      'temperatureMax':[],
+      'temperatureMin': []
+    }
+  };
+  for(var i=0;i<daily.data.length-2;i++) {
+    convertedDay = new Date(daily.data[i].time * 1000).getDay();
+    weatherJSON.nextDays.daily.push({
+      'day': weekDays[convertedDay],
+      'temperatureMax':daily.data[i].temperatureMax,
+      'temperatureMin':daily.data[i].temperatureMin,
+      'summary':daily.data[i].summary,
+      'precipType':daily.data[i].precipType,
+      'precipProbability':daily.data[i].precipProbability
+    });
+    weatherJSON.chartData.days.push(weekDays[convertedDay]);
+    weatherJSON.chartData.temperatureMax.push(daily.data[i].temperatureMax);
+    weatherJSON.chartData.temperatureMin.push(daily.data[i].temperatureMin);
+  }
+  callback(weatherJSON);
+}
+
 app.get('/', function(request, response) {
   response.sendFile(__dirname+'/views/index.html');
 });
@@ -49,7 +89,9 @@ app.get('/weather/:address',function (request, response) {
       var loc = data.results[0].geometry.location;
       if (loc.lat !== '' && loc.lng !== '') {
         getWeather(loc.lat, loc.lng, function(data) {
-          response.send(data);
+          generateJSONWeather(data, function (weatherJSON) {
+            response.send(weatherJSON);
+          })
         })
       }
     } else {
