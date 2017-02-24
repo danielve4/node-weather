@@ -2,23 +2,17 @@
 $.noConflict();
 (function($) {
   $(document).ready(function() {
-
-    var getWeatherInfo = function(lat,lng, callback) {
-      $.when($.ajax({
-        type: 'GET',
-        url: 'https://api.darksky.net/forecast/10ec48a74229fb3f53027bee3f2bfb2b/'+lat+','+lng+
-          '?exclude=minutely,hourly,flags'
-      })).then(callback, function() {
-        console.log("Error");
-      });
-    };
-
     var getWeather = function(loc) {
       if(loc.lat!=='' && loc.lng!=='') {
-        getWeatherInfo(loc.lat, loc.lng, function(data) {
-          var current = data.currently;
-          var curTemp = current.temperature;
-          console.log(curTemp);
+        $.when($.ajax({
+          type: 'GET',
+          url: '/weather/'+loc.lat+','+loc.lng
+        })).then(function(data) {
+            var current = data.currently;
+            var curTemp = current.temperature;
+            console.log(curTemp)
+        }, function() {
+          console.log("Error");
         });
       }
     };
@@ -44,7 +38,6 @@ $.noConflict();
       getCoordinates(getWeather);
       e.preventDefault();
     });
-
 
   });
 })(jQuery);
