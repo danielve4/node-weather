@@ -19,7 +19,10 @@ var httpget = function(query, callback) {
       body = JSON.parse(body);
       callback(body);
     });
-    //TODO Add error checking
+
+    res.on('error', function (error) {
+      callback('Error: ' + error.message);
+    });
   });
 };
 
@@ -33,7 +36,11 @@ app.get('/coordinates/:address', function(request, response) {
   var addressQuery = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address+
     '&key='+mapsKey;
   httpget(addressQuery, function(data) {
-    response.send(data);
+    if(data.startsWith('Errors')) {
+      response.status(404).send(data);
+    } else {
+      response.send(data);
+    }
   });
 });
 
@@ -44,7 +51,11 @@ app.get('/weather/:lat,:lng', function(request, response){
   var weatherQuery = 'https://api.darksky.net/forecast/'+weatherKey+'/'+
     lat+','+lng+'?exclude=minutely,hourly,flags';
   httpget(weatherQuery, function(data) {
-    response.send(data);
+    if(data.startsWith('Errors')) {
+      response.status(404).send(data);
+    } else {
+      response.send(data);
+    }
   });
 });
 
