@@ -1,36 +1,34 @@
 $.noConflict();
 jQuery(function($) {
   $(document).ready(function() {
-    function getWeather(loc) {
-      if(loc.lat!=='' && loc.lng!=='') {
-        $.when($.ajax({
-          type: 'GET',
-          url: '/weather/'+loc.lat+','+loc.lng
-        })).then(function(data) {
-          var current = data.currently;
-          var curTemp = current.temperature;
-          console.log(curTemp);
-        }, failure);
-      }
+
+    function addCurrentWeatherChart(weatherData) {
+      var chartTemp = {
+        labels: weatherData.chartData.days,
+        series: [
+          weatherData.chartData.temperatureMax,
+          weatherData.chartData.temperatureMin
+        ]
+      };
+      new Chartist.Line('.ct-chart', chartTemp);
     }
 
-    function getCoordinates(address, callback) {
-      if(address.length > 0) {
-        $.when($.ajax({
-          type: 'GET',
-          url: '/coordinates/'+address
-        })).then(function(data) {
-          if(data.status === "OK") {
-            var loc = data.results[0].geometry.location;
-            callback(loc);
-          }
-        }, failure);
-      }
+    function getWeather(address, callback) {
+      $.when($.ajax({
+        type: 'GET',
+        url: '/weather/'+address
+      })).then(function(data) {
+        callback(data);
+      }, failure);
     }
 
     $('#w-form').on('submit', function(e) {
       var address = ($('#w-text').val());
-      getCoordinates(address, getWeather);
+      if(address.length > 0) {
+        getWeather(address, function (data) {
+          addCurrentWeatherChart(data);
+        })
+      }
       e.preventDefault();
     });
   });
