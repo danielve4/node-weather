@@ -1,6 +1,5 @@
-//TODO Create a error function to handle any errors
 $.noConflict();
-(function($) {
+jQuery(function($) {
   $(document).ready(function() {
     var failure = function() {
       console.log('Error');
@@ -40,4 +39,4 @@ $.noConflict();
     });
 
   });
-})(jQuery);
+});
