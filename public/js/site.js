@@ -2,6 +2,10 @@
 $.noConflict();
 (function($) {
   $(document).ready(function() {
+    var failure = function() {
+      console.log('Error');
+    };
+
     var getWeather = function(loc) {
       if(loc.lat!=='' && loc.lng!=='') {
         $.when($.ajax({
@@ -11,9 +15,7 @@ $.noConflict();
             var current = data.currently;
             var curTemp = current.temperature;
             console.log(curTemp)
-        }, function() {
-          console.log("Error");
-        });
+        }, failure);
       }
     };
 
@@ -28,9 +30,7 @@ $.noConflict();
             var loc = data.results[0].geometry.location;
             callback(loc);
           }
-        }, function() {
-          console.log("Error");
-        });
+        }, failure);
       }
     };
 
