@@ -1,16 +1,49 @@
 var express = require('express');
+var https = require('https');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
-// views is directory for all template files
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+
+var httpget = function(query, callback) {
+  http.get(query, function(res) {
+    var body = '';
+    res.on('data', function(chunk) {
+      body += chunk;
+    });
+
+    res.on('end', function() {
+      body = JSON.parse(body);
+      callback(body);
+    });
+    //TODO Add error checking
+  });
+};
 
 app.get('/', function(request, response) {
-  response.sendFile(__dirname+'/index.html');
+  response.sendFile(__dirname+'/views/index.html');
+});
+
+app.get('/coordinates/:address', function(request, response) {
+  var address = request.params.address;
+  var addressQuery = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address+
+    '&key=AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
+  httpget(addressQuery, function(data) {
+    response.send(data);
+  });
+});
+
+app.get('/weather/:lat,:lng', function(request, response){
+  var lat = request.params.lat;
+  var lng = request.params.lng;
+  var weatherQuery = 'https://api.darksky.net/forecast/10ec48a74229fb3f53027bee3f2bfb2b/'+
+    lat+','+lng+'?exclude=minutely,hourly,flags';
+  httpget(weatherQuery, function(data) {
+    response.send(data);
+  });
 });
 
 app.listen(app.get('port'), function() {
