@@ -13,8 +13,8 @@ http://www.modularscale.com/?22&px&1.125&web&text
 html {
   font-size: 1.125em;     /*18px / 16px = 1.125em*/
   line-height: 1.222em;   /*22px is 1 gridline at 18px | 22px / 18px = 1.222em*/
-  background-color: #140941;
-  color: #60CEC3;
+  background-color: #2E9AC2;
+  color: #0B2934;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 500;
 }
@@ -23,7 +23,8 @@ h1 {
   font-size: 1.9531111em;  /*35.156px / 18px = 1.9531111em*/
   line-height: 1.251564456em; /*44px gridline at 35.156px | 44px / 35.156px = 1.251564456em*/
   font-weight: 600;
-  padding-bottom: 0.6257822278em;
+  padding-bottom: 1.06533333em; /*1.5 gridlines*/
+  text-align: center;
 }
 
 /*h2 {*/
@@ -57,10 +58,10 @@ textarea {
   font-size: 1.25em; /*22.5px / 18px = 1.25em*/
   line-height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
   height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  border-left: 0.2272727273em solid #EEEEEE;
-  border-right: 0.2272727273em solid #EEEEEE;
-  background: #EEEEEE;
-  color: #222;
+  border-left: 0.2272727273em solid #FFF;
+  border-right: 0.2272727273em solid #FFF;
+  background: #FFF;
+  color: #000;
   font-weight: 500;
   resize: none;
 }
@@ -69,8 +70,8 @@ textarea {
   font-size: 1.25em; /*22.5px / 18px = 1.25em*/
   line-height: 1.9555555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
   height: 1.95555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  background: #FF366A;
-  color: #140941;
+  background: #C9E5EF;
+  color: #0D2E3A;
   font-weight: 600;
   margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
 }
