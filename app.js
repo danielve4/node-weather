@@ -9,7 +9,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 
 var httpget = function(query, callback) {
-  http.get(query, function(res) {
+  https.get(query, function(res) {
     var body = '';
     res.on('data', function(chunk) {
       body += chunk;
@@ -29,8 +29,9 @@ app.get('/', function(request, response) {
 
 app.get('/coordinates/:address', function(request, response) {
   var address = request.params.address;
+  var mapsKey = 'AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
   var addressQuery = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address+
-    '&key=AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
+    '&key='+mapsKey;
   httpget(addressQuery, function(data) {
     response.send(data);
   });
@@ -39,7 +40,8 @@ app.get('/coordinates/:address', function(request, response) {
 app.get('/weather/:lat,:lng', function(request, response){
   var lat = request.params.lat;
   var lng = request.params.lng;
-  var weatherQuery = 'https://api.darksky.net/forecast/10ec48a74229fb3f53027bee3f2bfb2b/'+
+  var weatherKey = '10ec48a74229fb3f53027bee3f2bfb2b';
+  var weatherQuery = 'https://api.darksky.net/forecast/'+weatherKey+'/'+
     lat+','+lng+'?exclude=minutely,hourly,flags';
   httpget(weatherQuery, function(data) {
     response.send(data);
