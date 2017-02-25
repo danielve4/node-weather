@@ -2,16 +2,20 @@ var https = require('https');
 var express = require('express')
     ,router = express.Router();
 
+var weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var weatherKey = '10ec48a74229fb3f53027bee3f2bfb2b';
+var mapsKey = 'AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
+
 router.get('/:address,:numDays,:from', function(request, response) {
   var address = request.params.address;
+  var numOfDays = request.params.numDays;
+  var startFrom = request.params.from;
   getCoordinates(address, function(data) {
     if(data.status === "OK") {
       var loc = data.results[0].geometry.location;
       if (loc.lat !== '' && loc.lng !== '') {
-        getCurrentWeather(loc.lat, loc.lng, function(data) {
-          generateJSONWeather(data, function (weatherJSON) {
-            response.send(weatherJSON);
-          })
+        getAllWeather(loc.lat, loc.lng, numOfDays, startFrom, function(allData) {
+          response.send(allData);
         });
       }
     } else {
@@ -20,15 +24,60 @@ router.get('/:address,:numDays,:from', function(request, response) {
   });
 });
 
+function getAllWeather(lat, lng, numDays, from, callback) {
+  var numCompleted = 0;
+  var allWeatherJSON = {
+    'current':'',
+    'past':''
+  };
+
+  getCurrentWeather(lat, lng, function(current) {
+    allWeatherJSON.current = current;
+    numCompleted++;
+    if(numCompleted===2) {
+      callback(allWeatherJSON);
+    }
+  });
+  getPastWeather(lat, lng, numDays, from, function(past) {
+    allWeatherJSON.past = past;
+    numCompleted++;
+    if(numCompleted===2) {
+      callback(allWeatherJSON);
+    }
+  });
+
+}
+
+function getPastWeather(lat, lng, numDays, from, callback) {
+  var dayInSeconds = 24*60*60;
+  var weatherQuery;
+  var numCompleted = 0;
+  var weatherForDays = {
+    'days':[]
+  };
+
+  for(var j=1;j<=numDays;j++) {
+    weatherQuery = 'https://api.darksky.net/forecast/'+weatherKey+'/'+
+      lat+','+lng+','+(from-(dayInSeconds*j))+'?exclude=currently,hourly,flags';
+    httpget(weatherQuery, function (data) {
+      weatherForDays.days.push(pastDayJSON(data));
+      numCompleted++;
+      if(numCompleted==numDays) {
+        callback(weatherForDays);
+      }
+    });
+  }
+}
+
 function getCurrentWeather(lat, lng, callback) {
-  var weatherKey = '10ec48a74229fb3f53027bee3f2bfb2b';
   var weatherQuery = 'https://api.darksky.net/forecast/'+weatherKey+'/'+
     lat+','+lng+'?exclude=minutely,hourly,flags';
-  httpget(weatherQuery, callback);
+  httpget(weatherQuery, function (data) {
+    callback(currentJSON(data));
+  });
 }
 
 function getCoordinates(address, callback) {
-  var mapsKey = 'AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
   var addressQuery = 'https://maps.googleapis.com/maps/api/geocode/json?address='+address+
     '&key='+mapsKey;
   httpget(addressQuery, callback);
@@ -50,12 +99,11 @@ function httpget(query, callback) {
   });
 }
 
-function generateJSONWeather(jsonData, callback) {
-  var weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function currentJSON(jsonData) {
   var now = jsonData.currently;
   var daily = jsonData.daily;
   var convertedDay;
-  var weatherJSON = {
+  var current = {
     'currently': {
       'summary': now.summary,
       'precipProbability': now.precipProbability,
@@ -67,7 +115,7 @@ function generateJSONWeather(jsonData, callback) {
       'summary': daily.summary,
       'daily': []
     },
-    'chartData': {
+    'forecastChart': {
       'days':[],
       'temperatureMax':[],
       'temperatureMin': []
@@ -75,7 +123,7 @@ function generateJSONWeather(jsonData, callback) {
   };
   for(var i=1;i<daily.data.length-2;i++) {
     convertedDay = new Date(daily.data[i].time * 1000).getDay();
-    weatherJSON.nextDays.daily.push({
+    current.nextDays.daily.push({
       'day': weekDays[convertedDay],
       'temperatureMax':daily.data[i].temperatureMax,
       'temperatureMin':daily.data[i].temperatureMin,
@@ -83,11 +131,23 @@ function generateJSONWeather(jsonData, callback) {
       'precipType':daily.data[i].precipType,
       'precipProbability':daily.data[i].precipProbability
     });
-    weatherJSON.chartData.days.push(weekDays[convertedDay]);
-    weatherJSON.chartData.temperatureMax.push(daily.data[i].temperatureMax);
-    weatherJSON.chartData.temperatureMin.push(daily.data[i].temperatureMin);
+    current.forecastChart.days.push(weekDays[convertedDay]);
+    current.forecastChart.temperatureMax.push(daily.data[i].temperatureMax);
+    current.forecastChart.temperatureMin.push(daily.data[i].temperatureMin);
   }
-  callback(weatherJSON);
+  return current;
+}
+
+function pastDayJSON(jsonData) {
+  var dayFacts = jsonData.daily.data[0];
+  var convertedDay = new Date(dayFacts.time * 1000).getDay();
+  var pastDaysData = {
+    'day': weekDays[convertedDay],
+    'summary': dayFacts.summary,
+    'temperatureMin':dayFacts.temperatureMin,
+    'temperatureMax':dayFacts.temperatureMax
+  };
+  return pastDaysData;
 }
 
 module.exports = router;
