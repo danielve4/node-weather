@@ -103,7 +103,7 @@ input {
 }
 
 #page {
-  padding: 0.611111111em; /*one gridline*/
+  padding: 0.611111111em; /*half gridline*/
 }
 
 /* 480px @ 16px/em*/
