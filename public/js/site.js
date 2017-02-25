@@ -3,20 +3,24 @@ jQuery(function($) {
   $(document).ready(function() {
 
     function addCurrentWeatherChart(weatherData) {
+      console.log(weatherData);
       var chartTemp = {
-        labels: weatherData.chartData.days,
+        labels: weatherData.current.forecastChart.days,
         series: [
-          weatherData.chartData.temperatureMax,
-          weatherData.chartData.temperatureMin
+          weatherData.current.forecastChart.temperatureMax,
+          weatherData.current.forecastChart.temperatureMin
         ]
       };
       new Chartist.Line('.ct-chart', chartTemp);
     }
 
     function getWeather(address, callback) {
+      var from = Math.floor(Date.now() / 1000);
+      console.log(from);
+      var days = 3;
       $.when($.ajax({
         type: 'GET',
-        url: '/forecast/'+address
+        url: '/weather/'+address+','+days+','+from
       })).then(function(data) {
         callback(data);
       }, failure);
