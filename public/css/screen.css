@@ -86,8 +86,47 @@ input {
   margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
 }
 
-.ct-chart {
-  margin-top: 2.444444444em;
+.card {
+  margin-top: 0.61111111em;
+  border-radius: 0.18181818em;
+  box-shadow: 0 0.36363636em 0.7272727em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
+  background-color: #F9F9F9;
+}
+
+#current,
+#forecast {
+  padding: 1.222222em;
+}
+
+#forecast li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+#forecast li:first-child {
+  padding-top: 0;
+}
+
+#current-date {
+  color: #263238;
+}
+
+#current-temperature {
+  font-weight: 300;
+  font-size: 4em;
+  line-height: 1.2em;
+  color: #263238;
+  /*padding-bottom: 22px;*/
+}
+
+.forecast-day {
+  padding-top: 0.5555555555em;
+  padding-bottom: 1em;
+  border-bottom: 0.1em solid #e0e0e0;
+}
+
+.forecast-high-low {
+  float: right;
 }
 
 .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
