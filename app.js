@@ -61,7 +61,7 @@ function generateJSONWeather(weatherJSON, callback) {
       'temperatureMin': []
     }
   };
-  for(var i=0;i<daily.data.length-2;i++) {
+  for(var i=1;i<daily.data.length-2;i++) {
     convertedDay = new Date(daily.data[i].time * 1000).getDay();
     weatherJSON.nextDays.daily.push({
       'day': weekDays[convertedDay],
@@ -82,7 +82,7 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname+'/views/index.html');
 });
 
-app.get('/weather/:address',function (request, response) {
+app.get('/forecast/:address',function (request, response) {
   var address = request.params.address;
   getCoordinates(address, function(data) {
     if(data.status === "OK") {
