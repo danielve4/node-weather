@@ -13,8 +13,8 @@ http://www.modularscale.com/?22&px&1.125&web&text
 html {
   font-size: 1.125em;     /*18px / 16px = 1.125em*/
   line-height: 1.222em;   /*22px is 1 gridline at 18px | 22px / 18px = 1.222em*/
-  background-color: #2E9AC2;
-  color: #0B2934;
+  background-color: #03a9f4;
+  color: #001A26;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 500;
 }
@@ -27,21 +27,20 @@ h1 {
   text-align: center;
 }
 
-/*h2 {*/
-  /*font-size: 1.5625em;     !*28.125px /18px = 1.5625em*!*/
-  /*line-height: 1.1733333em; !*33px = 1.5 gridline at 28.125px*!*/
-  /*padding-top: 0.78222222em; !*One gridline to top | 22px / 28.125px = 0.78222222em*!*/
-  /*font-weight: 600;*/
-/*}*/
+h2 {
+  font-size: 1.5625em;     /*28.125px /18px = 1.5625em*/
+  line-height: 1.1733333em; /*33px = 1.5 gridline at 28.125px*/
+  padding-top: 0.78222222em; /*One gridline to top | 22px / 28.125px = 0.78222222em*/
+  font-weight: 600;
+}
 
-/*h3 {*/
-  /*font-size: 1.25em; !*22.5px / 18px = 1.25em*!*/
-  /*line-height: 1.2222222em; !*1.25 gridline at 22.5px | 27.5px / 22.5px = 1.222222em*!*/
-  /*padding-top: 0.488888888em; !*Half gridline | 11px / 22.5px = 0.488888888em*!*/
-/*}*/
+h3 {
+  font-size: 1.25em; /*22.5px / 18px = 1.25em*/
+  line-height: 1.2222222em; /*1.25 gridline at 22.5px | 27.5px / 22.5px = 1.222222em*/
+  padding-top: 0.488888888em; /*Half gridline | 11px / 22.5px = 0.488888888em*/
+}
 
-input,
-textarea {
+input {
   display: block;
   width: 100%;
   font-family: inherit;
@@ -54,30 +53,53 @@ textarea {
   box-sizing: border-box;
 }
 
-#w-text {
+#w-search {
   font-size: 1.25em; /*22.5px / 18px = 1.25em*/
   line-height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
   height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
   border-left: 0.2272727273em solid #FFF;
   border-right: 0.2272727273em solid #FFF;
+  border-radius: 0.088888889em;
   background: #FFF;
   color: #000;
   font-weight: 500;
   resize: none;
 }
 
+#w-search::-webkit-search-cancel-button{
+  display: none;
+}
+
 #w-submit {
   font-size: 1.25em; /*22.5px / 18px = 1.25em*/
   line-height: 1.9555555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
   height: 1.95555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  background: #C9E5EF;
-  color: #0D2E3A;
+  border-radius: 0.088888889em;
+  box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
+  background: #ffeb3b;
+  color: #202208;
   font-weight: 600;
   margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
 }
 
+.ct-chart {
+  margin-top: 2.444444444em;
+}
+
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+  stroke: #d70206;
+}
+
+.ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+  stroke: #0000FF;
+}
+
+.ct-label {
+  color: inherit;
+}
+
 #page {
-  padding: 1.222em; /*one gridline*/
+  padding: 0.611111111em; /*one gridline*/
 }
 
 /* 480px @ 16px/em*/
