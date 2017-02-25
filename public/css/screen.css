@@ -78,12 +78,13 @@ input {
   font-size: 1.25em; /*22.5px / 18px = 1.25em*/
   line-height: 1.9555555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
   height: 1.95555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  border-radius: 0.088888889em;
+  border-radius: 0.088888889em; /*2px*/
   box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
   background: #ffeb3b;
   color: #202208;
   font-weight: 600;
   margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
+  margin-bottom: 1.955555556em; /*Two gridlines*/
 }
 
 .card {
@@ -96,6 +97,11 @@ input {
 #current,
 #forecast {
   padding: 1.222222em;
+}
+
+#forecast-chart {
+  padding-top: 1.22222em;
+  padding-bottom: 1em;
 }
 
 #forecast li:last-child {
