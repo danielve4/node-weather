@@ -23,7 +23,7 @@ jQuery(function($) {
     }
 
     $('#w-form').on('submit', function(e) {
-      var address = ($('#w-text').val());
+      var address = ($('#w-search').val());
       if(address.length > 0) {
         getWeather(address, function (data) {
           addCurrentWeatherChart(data);
