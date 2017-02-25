@@ -4,8 +4,8 @@
   <title>Weather</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no" />
-  <link rel="stylesheet" media="screen" href="/css/screen.css" />
   <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <link rel="stylesheet" media="screen" href="/css/screen.css" />
 </head>
 <body>
 <div id="page">
@@ -15,12 +15,14 @@
   <main id="content">
     <article id="controls">
       <form id="w-form" name="w-form" method="get" action="#">
-        <input type="text" id="w-text" name="w-text" placeholder="Enter an location" />
+        <input type="search" id="w-search" name="w-search" placeholder="Enter an location" />
         <input type="submit" id="w-submit" name="w-submit" value="SEARCH" />
       </form>
     </article>
     <article id="charts">
-      <div class="ct-chart ct-perfect-fourth"></div>
+      <ul>
+        <li class="ct-chart ct-perfect-fourth"></li>
+      </ul>
     </article>
   </main>
   <footer class="footer">
