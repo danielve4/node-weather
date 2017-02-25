@@ -31,9 +31,21 @@ jQuery(function($) {
       }
       e.preventDefault();
     });
+
+
+    $('#w-search').focus( function() {
+      $(this).addClass('yes');
+    }).blur( function() {
+      $(this).removeClass('yes');
+    });
+
   });
 
-  function failure() {
-    console.log('Error');
+  function failure(error) {
+    if(error.length>0) {
+      console.log('Error: '+error);
+    } else {
+      console.log('Unknown error occurred');
+    }
   }
 });
