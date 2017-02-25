@@ -99,7 +99,8 @@ input {
   padding: 1.222222em;
 }
 
-#forecast-chart {
+#forecast-chart,
+#past-days-chart {
   padding-top: 1.22222em;
   padding-bottom: 1em;
 }
