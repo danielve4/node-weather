@@ -16,7 +16,7 @@ jQuery(function($) {
     function getWeather(address, callback) {
       $.when($.ajax({
         type: 'GET',
-        url: '/weather/'+address
+        url: '/forecast/'+address
       })).then(function(data) {
         callback(data);
       }, failure);
