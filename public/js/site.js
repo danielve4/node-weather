@@ -17,6 +17,10 @@ jQuery(function($) {
       console.log(weatherData);
       var today = formattedDay();
       var current = weatherData.current;
+      var past = weatherData.past.days;
+      var pastDays=[];
+      var pastMax = [];
+      var pastMin = [];
 
       $('#weather-data').append(
         '<li class="card">'+
@@ -38,7 +42,12 @@ jQuery(function($) {
         '</li>'+
         '<li class="card">' +
           '<ul id="forecast-chart">' +
-           '<li class="ct-chart ct-perfect-fourth"></li>' +
+            '<li class="ct-chart ct-perfect-fourth" id="forecast-graph"></li>' +
+          '</ul>' +
+        '</li>' +
+        '<li class="card">' +
+          '<ul id="past-days-chart">' +
+            '<li class="ct-chart ct-perfect-fourth" id="past-days-graph"></li>' +
           '</ul>' +
         '</li>'
       );
@@ -55,14 +64,29 @@ jQuery(function($) {
         );
       }
 
-      var chartTemp = {
-        labels: weatherData.current.forecastChart.days,
+      for(var l=past.length-1;l>=0;l--) {
+        pastDays[l]=(past[l].day);
+        pastMax[l]=(past[l].temperatureMax);
+        pastMin[l]=(past[l].temperatureMin);
+      }
+
+      var forecastChart = {
+        labels: current.forecastChart.days,
         series: [
-          weatherData.current.forecastChart.temperatureMax,
-          weatherData.current.forecastChart.temperatureMin
+          current.forecastChart.temperatureMax,
+          current.forecastChart.temperatureMin
         ]
       };
-      new Chartist.Line('.ct-chart', chartTemp);
+      new Chartist.Line('#forecast-graph', forecastChart);
+
+      var pastDaysChart = {
+        labels: pastDays,
+        series: [
+          pastMax,
+          pastMin
+        ]
+      };
+      new Chartist.Line('#past-days-graph', pastDaysChart);
     }
 
     function getWeather(address, callback) {
