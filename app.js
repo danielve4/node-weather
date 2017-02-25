@@ -95,7 +95,7 @@ app.get('/weather/:address',function (request, response) {
         })
       }
     } else {
-      response.status(404).send(data);
+      response.status(404).send('Location Not Found');
     }
   });
 });
