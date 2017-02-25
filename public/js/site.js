@@ -36,7 +36,11 @@ jQuery(function($) {
           '<ul id="forecast">'+
           '</ul>'+
         '</li>'+
-        '<li class="ct-chart ct-perfect-fourth card"></li>'
+        '<li class="card">' +
+          '<ul id="forecast-chart">' +
+           '<li class="ct-chart ct-perfect-fourth"></li>' +
+          '</ul>' +
+        '</li>'
       );
 
       for(var i=0;i<current.nextDays.daily.length;i++) {
@@ -44,8 +48,8 @@ jQuery(function($) {
           '<li class="forecast-day ">' +
           current.nextDays.daily[i].day + ' ' +
           '<span class="forecast-high-low">' +
-          Math.round(current.nextDays.daily[i].temperatureMax) + '°/' +
-          Math.round(current.nextDays.daily[i].temperatureMin) + '°' +
+            Math.round(current.nextDays.daily[i].temperatureMax) + '°/' +
+            Math.round(current.nextDays.daily[i].temperatureMin) + '°' +
           '</span>' +
           '</li>'
         );
