@@ -101,8 +101,8 @@ input {
 
 #forecast-chart,
 #past-days-chart {
-  padding-top: 1.22222em;
-  padding-bottom: 1em;
+  padding-top: 1.222222em;
+  padding-left: 1em;
 }
 
 #forecast li:last-child {
