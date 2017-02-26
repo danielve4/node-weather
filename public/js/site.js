@@ -10,7 +10,9 @@ jQuery(function($) {
     "August", "September", "October",
     "November", "December"
   ];
+  var storageItem = 'pastQueries';
   var todayDate;
+  var pastQueries;
   $(document).ready(function() {
     function addCurrentWeatherChart(weatherData) {
       $('#weather-data').empty();
@@ -62,13 +64,21 @@ jQuery(function($) {
           '</span>' +
           '</li>'
         );
+
+        if(i<past.length) {
+          pastDays.push(past[i].day);
+          pastMax.push(past[i].temperatureMax);
+          pastMin.push(past[i].temperatureMin);
+        }
       }
 
-      for(var l=past.length-1;l>=0;l--) {
-        pastDays[l]=(past[l].day);
-        pastMax[l]=(past[l].temperatureMax);
-        pastMin[l]=(past[l].temperatureMin);
-      }
+      var chartOptions = {
+        fullWidth: true,
+        axisY: {
+          onlyInteger: true,
+          position: 'end'
+        }
+      };
 
       var forecastChart = {
         labels: current.forecastChart.days,
@@ -77,7 +87,7 @@ jQuery(function($) {
           current.forecastChart.temperatureMin
         ]
       };
-      new Chartist.Line('#forecast-graph', forecastChart);
+      new Chartist.Line('#forecast-graph', forecastChart, chartOptions);
 
       var pastDaysChart = {
         labels: pastDays,
@@ -86,7 +96,7 @@ jQuery(function($) {
           pastMin
         ]
       };
-      new Chartist.Line('#past-days-graph', pastDaysChart);
+      new Chartist.Line('#past-days-graph', pastDaysChart, chartOptions);
     }
 
     function getWeather(address, callback) {
@@ -96,6 +106,7 @@ jQuery(function($) {
         type: 'GET',
         url: '/weather/'+address+','+days+','+todayDate
       })).then(function(data) {
+        addToHistory(address);
         callback(data);
       }, failure);
     }
@@ -117,7 +128,38 @@ jQuery(function($) {
       $(this).removeClass('yes');
     });
 
+    $('#w-search').autoComplete({
+      minChars: 1,
+      source: function(term, suggest){
+        pastQueries = localStorage.getItem(storageItem);
+        if(pastQueries) {
+          pastQueries = JSON.parse(pastQueries);
+          term = term.toLowerCase();
+          var matches = [];
+          for (i=0; i<pastQueries.queries.length; i++)
+            if (~pastQueries.queries[i].toLowerCase().indexOf(term))
+              matches.push(pastQueries.queries[i]);
+          suggest(matches);
+        }
+      }
+    });
   });
+
+  function addToHistory(location) {
+    if(!pastQueries) {
+      pastQueries = {
+        'queries':[]
+      };
+      pastQueries.queries.push(location);
+    } else {
+      pastQueries = JSON.parse(pastQueries);
+      if(pastQueries.queries.length>5) {
+        pastQueries.queries.shift();
+      }
+      pastQueries.queries.push(location);
+    }
+    localStorage.setItem(storageItem, pastQueries.stringify);
+  }
 
   function formattedDay() {
     var date = new Date(todayDate*1000);
