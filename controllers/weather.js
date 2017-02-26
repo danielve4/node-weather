@@ -15,6 +15,9 @@ router.get('/:address,:numDays,:from', function(request, response) {
       var loc = data.results[0].geometry.location;
       if (loc.lat !== '' && loc.lng !== '') {
         getAllWeather(loc.lat, loc.lng, numOfDays, startFrom, function(allData) {
+          allData.past.days.sort(function(a, b) {
+            return parseFloat(a.time) - parseFloat(b.time);
+          });
           response.send(allData);
         });
       }
@@ -143,6 +146,7 @@ function pastDayJSON(jsonData) {
   var convertedDay = new Date(dayFacts.time * 1000).getDay();
   var pastDaysData = {
     'day': weekDays[convertedDay],
+    'time':dayFacts.time,
     'summary': dayFacts.summary,
     'temperatureMin':dayFacts.temperatureMin,
     'temperatureMax':dayFacts.temperatureMax
