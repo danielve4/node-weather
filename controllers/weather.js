@@ -31,7 +31,7 @@ router.get('/:address,:numDays,:from', function(request, response) {
       }
     } else if(data.status === "ZERO_RESULTS") {
       var errorJSON = {
-        'status': data.status
+        'status': 'Sorry, no results were found for ' + address
       };
       response.send(errorJSON);
     } else {
