@@ -23,8 +23,6 @@ h1 {
   font-size: 1.9531111em;  /*35.156px / 18px = 1.9531111em*/
   line-height: 1.251564456em; /*44px gridline at 35.156px | 44px / 35.156px = 1.251564456em*/
   font-weight: 600;
-  padding-bottom: 1.06533333em; /*1.5 gridlines*/
-  text-align: center;
 }
 
 h2 {
@@ -40,6 +38,21 @@ h3 {
   padding-top: 0.488888888em; /*Half gridline | 11px / 22.5px = 0.488888888em*/
 }
 
+header {
+  position: relative;
+}
+
+#history-button {
+  position: absolute;
+  height: 2.444444em; /*44px*/
+  width: 2.444444em;
+  background: url("../icons/ic_history_black_24px.svg") no-repeat;
+  background-size: 2.2222222em; /*40px*/
+  background-position: 50%;
+  right: 0;
+  top:0;
+}
+
 #w-form {
   width: 100%;
   position: relative;
@@ -49,7 +62,8 @@ h3 {
   border-radius: 0.088888889em;
 }
 
-input {
+input,
+#history-button {
   font-family: inherit;
   font-size: 100%;
   padding: 0;
@@ -75,9 +89,9 @@ input {
   resize: none;
 }
 
-/*.w-is-active.yes {*/
-  /*box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);!*The shadow of the navigation bar 4px down, 8px blur radius*!*/
-/*}*/
+.w-is-active.yes {
+  box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
+}
 
 #w-search::-webkit-search-cancel-button{
   display: none;
@@ -90,7 +104,7 @@ input {
   height: 2.44444444em; /*44px/18px=2.4444em*/
   width: 2.44444444em;  /*44px/18px=2.4444em*/
   background: url("../icons/ic_search_white_24px.svg") no-repeat;
-  background-size: 2.2222222em;
+  background-size: 2.2222222em; /*40px*/
   background-position: 50%;
   background-color: #2196f3;
   color: #202208;
