@@ -121,7 +121,9 @@ function currentJSON(jsonData) {
       'precipProbability': now.precipProbability,
       'precipType': now.precipType,
       'temperature': now.temperature,
-      'apparentTemperature': now.apparentTemperature
+      'apparentTemperature': now.apparentTemperature,
+      'high':daily.data[0].temperatureMax,
+      'low': daily.data[0].temperatureMin
     },
     'nextDays': {
       'summary': daily.summary,
