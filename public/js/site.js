@@ -5,6 +5,7 @@ jQuery(function($) {
   var monthNames = [
     "January", "February", "March","April", "May", "June", "July",
     "August", "September", "October", "November", "December"];
+  var historyActive=false;
   var storageItem = 'pastQueries';
   var todayDate;
   var pastQueries;
@@ -22,7 +23,7 @@ jQuery(function($) {
       $('#weather-data').append(
         '<li class="card">'+
           '<ul id="current">'+
-            '<li id="current-date">'+
+            '<li id="location-found">'+
               weatherData.location +
             '</li>' +
             '<li id="current-date">'+
@@ -54,7 +55,7 @@ jQuery(function($) {
 
       for(var i=0;i<current.nextDays.daily.length;i++) {
         $('#forecast').append(
-          '<li class="forecast-day ">' +
+          '<li class="list-card">' +
           current.nextDays.daily[i].day + ' ' +
           '<span class="forecast-high-low">' +
             Math.round(current.nextDays.daily[i].temperatureMax) + '°/' +
@@ -62,14 +63,12 @@ jQuery(function($) {
           '</span>' +
           '</li>'
         );
-
         if(i<past.length) {
           pastDays.push(past[i].day);
           pastMax.push(past[i].temperatureMax);
           pastMin.push(past[i].temperatureMin);
         }
       }
-
       var chartOptions = {
         fullWidth: true,
         axisY: {
@@ -77,7 +76,6 @@ jQuery(function($) {
           position: 'end'
         }
       };
-
       var forecastChart = {
         labels: current.forecastChart.days,
         series: [
@@ -124,6 +122,25 @@ jQuery(function($) {
       $(this).addClass('yes');
     }).blur( function() {
       $(this).removeClass('yes');
+    });
+
+    $('#history-button').on('click', function(e) {
+      if(!historyActive) {
+        var historyList = getHistory().queries;
+        $('#history-list').addClass('card');
+        if(historyList.length>0) {
+          for(var p=0;p<historyList.length;p++) {
+            $('#history-list').append(
+              '<li class="list-card"><a href="#">'+historyList[p]+'</a></li>'
+            );
+          }
+        } else {
+          $('#history-list').append(
+            '<li>History is empty</li>'
+          );
+        }
+        historyActive=true;
+      }
     });
 
   });
