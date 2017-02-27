@@ -51,6 +51,53 @@ header {
   position: relative;
 }
 
+a {
+  text-decoration: none;
+  /*border-bottom: 0.1666667em solid; !*The underline of email and LinkedIn*!*/
+  color: #3949AB;
+}
+
+.history-close-button {
+  visibility: hidden;
+  position: absolute;
+}
+
+#history-card.active {
+  padding: 0.61111111em 1.222222em 1.2222222em 1.222222em; /*11px 22px 0 22px*/
+  margin-top: 1.61111111em; /*29px = 7px+22px*/
+}
+
+#history-list a {
+  display: block;
+  padding-top: 0.611111111em;
+  padding-bottom: 0.611111em;
+}
+
+#history-list li {
+  border-bottom: 0.1em solid #e0e0e0;
+}
+
+.history-close-button.active {
+  visibility: visible;
+  position: static;
+}
+
+.close-button-li.active {
+  padding-top: 1.833333em; /*33px @ 18px*/
+  margin-left: -0.88888889em; /**/
+}
+
+.close-button-li.active a {
+  padding: 0.6111111em 0.88888889em; /*11px and 16px*/
+}
+
+#history-close-button,
+.history-card-list,
+#history-card,
+#history-list {
+
+}
+
 #history-button {
   position: absolute;
   height: 2.444444em; /*44px*/
@@ -60,10 +107,6 @@ header {
   background-position: 50%;
   right: 0;
   top:0;
-}
-
-#history-list {
-  margin-top: 1.83333333em; /*1.5 gridlines | 33px*/
 }
 
 #w-form {
@@ -134,8 +177,7 @@ input,
 }
 
 #current,
-#forecast,
-#history-list {
+#forecast {
   padding: 1.222222em;
 }
 
@@ -145,14 +187,12 @@ input,
   padding-left: 1em;
 }
 
-#forecast li:last-child,
-#history-list li:last-child {
+#forecast li:last-child {
   padding-bottom: 0;
   border-bottom: 0;
 }
 
-#forecast li:first-child,
-#history-list li:first-child{
+#forecast li:first-child {
   padding-top: 0;
 }
 
@@ -172,7 +212,6 @@ input,
   font-size: 4em;
   line-height: 1.2em;
   color: #263238;
-  /*padding-bottom: 22px;*/
 }
 
 .list-card {
