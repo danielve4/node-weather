@@ -109,11 +109,14 @@ a {
   top:0;
 }
 
+#controls {
+  margin-top: 2.93333333em; /*One gridline: 22px / 22.5px = 0.9777778em*/
+  margin-bottom: 1.95555556em; /*Two gridlines*/
+}
+
 #w-form {
   width: 100%;
   position: relative;
-  margin-top: 2.93333333em; /*One gridline: 22px / 22.5px = 0.9777778em*/
-  margin-bottom: 1.955555556em; /*Two gridlines*/
   box-shadow: 0 0.2222222em 0.4444444em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
   border-radius: 0.088888889em;
 }
@@ -145,6 +148,10 @@ input,
   resize: none;
 }
 
+#error-message {
+  color: #D71616;
+  padding-top: 0.61111111em; /*11px*/
+}
 .w-is-active.yes {
   box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
 }
