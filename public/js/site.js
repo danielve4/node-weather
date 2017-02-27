@@ -41,21 +41,23 @@ jQuery(function($) {
           '</ul>'+
         '</li>'+
         '<li class="card">'+
+          '<h2>Next 5 Days</h2>' +
           '<ul id="forecast">'+
           '</ul>'+
         '</li>'+
         '<li class="card">' +
+          '<h2>Forecast Visualized</h2>' +
           '<ul id="forecast-chart">' +
             '<li class="ct-chart ct-perfect-fourth" id="forecast-graph"></li>' +
           '</ul>' +
         '</li>' +
         '<li class="card">' +
+          '<h2>Previus 3 Days</h2>' +
           '<ul id="past-days-chart">' +
             '<li class="ct-chart ct-perfect-fourth" id="past-days-graph"></li>' +
           '</ul>' +
         '</li>'
       );
-
       for(var i=0;i<current.nextDays.daily.length;i++) {
         $('#forecast').append(
           '<li class="list-card">' +
