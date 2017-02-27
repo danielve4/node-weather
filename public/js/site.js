@@ -131,22 +131,28 @@ jQuery(function($) {
 
   });
 
-  function addToHistory(location) {
-    var newQueries;
+  function getHistory() {
+    var pastQueriesJSON;
+    pastQueries = localStorage.getItem(storageItem);
     if(!pastQueries) {
-      newQueries = {
+      pastQueriesJSON = {
         'queries': []
       };
-      newQueries.queries.push(location);
-      localStorage.setItem(storageItem, JSON.stringify(newQueries));
     } else {
-      newQueries = JSON.parse(pastQueries);
-      if(newQueries.queries.length>=5) {
-        newQueries.queries.shift();
-      }
-      newQueries.queries.push(location);
-      localStorage.setItem(storageItem, JSON.stringify(newQueries));
+      pastQueriesJSON = JSON.parse(pastQueries);
     }
+    return pastQueriesJSON;
+  }
+
+  function addToHistory(location) {
+    var newQueries;
+    pastQueries = getHistory();
+    if(newQueries.queries.length>=5) {
+      newQueries.queries.shift();
+    }
+    newQueries.queries.push(location);
+    localStorage.setItem(storageItem, JSON.stringify(newQueries));
+
   }
 
   function formattedDay() {
