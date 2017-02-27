@@ -38,6 +38,7 @@ h2 {
   font-size: 1.5625em;     /*28.125px /18px = 1.5625em*/
   line-height: 1.1733333em; /*33px = 1.5 gridline at 28.125px*/
   padding-top: 0.78222222em; /*One gridline to top | 22px / 28.125px = 0.78222222em*/
+  padding-left: 0.782222222em;
   font-weight: 600;
 }
 
