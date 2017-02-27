@@ -6,6 +6,7 @@ var weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 var weatherKey = '10ec48a74229fb3f53027bee3f2bfb2b';
 var mapsKey = 'AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
 var allWeatherJSON = {
+  'status':'',
   'location':'',
   'current':'',
   'past':'',
@@ -23,12 +24,18 @@ router.get('/:address,:numDays,:from', function(request, response) {
           allData.past.days.sort(function(a, b) {
             return parseFloat(a.time) - parseFloat(b.time);
           });
+          allWeatherJSON.status = data.status;
           allWeatherJSON.location = data.results[0].formatted_address;
           response.send(allData);
         });
       }
+    } else if(data.status === "ZERO_RESULTS") {
+      var errorJSON = {
+        'status': data.status
+      };
+      response.send(errorJSON);
     } else {
-      response.status(404).send('Location Not Found');
+      response.status(404).send('Unknown Error');
     }
   });
 });
