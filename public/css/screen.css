@@ -19,10 +19,19 @@ html {
   font-weight: 500;
 }
 
+#header-background {
+  height: 3.6666666667em;
+  box-shadow: 0 0.2222222em 0.4444444em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
+  width: 100%;
+  background-color: #2196f3;
+  position: absolute;
+}
+
 h1 {
   font-size: 1.9531111em;  /*35.156px / 18px = 1.9531111em*/
   line-height: 1.251564456em; /*44px gridline at 35.156px | 44px / 35.156px = 1.251564456em*/
-  font-weight: 600;
+  font-weight: 500;
+  color: #FFFFFF;
 }
 
 h2 {
@@ -56,7 +65,7 @@ header {
 #w-form {
   width: 100%;
   position: relative;
-  margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
+  margin-top: 2.93333333em; /*One gridline: 22px / 22.5px = 0.9777778em*/
   margin-bottom: 1.955555556em; /*Two gridlines*/
   box-shadow: 0 0.2222222em 0.4444444em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
   border-radius: 0.088888889em;
