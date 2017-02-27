@@ -54,7 +54,6 @@ header {
 
 a {
   text-decoration: none;
-  /*border-bottom: 0.1666667em solid; !*The underline of email and LinkedIn*!*/
   color: #3949AB;
 }
 
@@ -252,6 +251,14 @@ input,
 
 #page {
   padding: 0.611111111em; /*half gridline*/
+}
+
+.footer a {
+  border-bottom: 0.1666667em solid; /*The underline of email and LinkedIn*/
+}
+
+.footer {
+  margin: 2.444444em 0 1.222222em 0;
 }
 
 /* 480px @ 16px/em*/
