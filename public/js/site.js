@@ -23,6 +23,9 @@ jQuery(function($) {
         '<li class="card">'+
           '<ul id="current">'+
             '<li id="current-date">'+
+              weatherData.location +
+            '</li>' +
+            '<li id="current-date">'+
                today.month + ' ' + today.day +
             '</li>' +
             '<li id="current-temperature">'+
