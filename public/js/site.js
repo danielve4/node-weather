@@ -135,7 +135,7 @@ jQuery(function($) {
           $('#history-list').addClass('active');
           for(var p=0;p<historyList.length;p++) {
             $('#history-list').append(
-              '<li class="list-card-history"><a href="#">'+historyList[p]+'</a></li>'
+              '<li class="list-card-history"><a href="#" class="history-element">'+historyList[p]+'</a></li>'
             );
           }
         } else {
@@ -145,6 +145,11 @@ jQuery(function($) {
         }
         historyActive=true;
       }
+    });
+
+    $('#history-list').on('click', '.history-element', function() {
+      $('#w-search').val($(this).text());
+      $('#w-search').submit();
     });
 
     $('.history-close-button').on('click', function(e) {
