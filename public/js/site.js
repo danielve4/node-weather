@@ -114,6 +114,7 @@ jQuery(function($) {
     $('#w-form').on('submit', function(e) {
       var address = ($('#w-search').val());
       if(address.length > 0) {
+        addToHistory(address);
         getWeather(address, function (data) {
           addCurrentWeatherChart(data);
         })
@@ -122,43 +123,30 @@ jQuery(function($) {
     });
 
 
-    $('#w-search').focus( function() {
+    $('#w-search').focus(function() {
       $(this).addClass('yes');
     }).blur( function() {
       $(this).removeClass('yes');
     });
 
-    $('#w-search').autoComplete({
-      minChars: 1,
-      source: function(term, suggest){
-        pastQueries = localStorage.getItem(storageItem);
-        if(pastQueries) {
-          pastQueries = JSON.parse(pastQueries);
-          term = term.toLowerCase();
-          var matches = [];
-          for (i=0; i<pastQueries.queries.length; i++)
-            if (~pastQueries.queries[i].toLowerCase().indexOf(term))
-              matches.push(pastQueries.queries[i]);
-          suggest(matches);
-        }
-      }
-    });
   });
 
   function addToHistory(location) {
+    var newQueries;
     if(!pastQueries) {
-      pastQueries = {
-        'queries':[]
+      newQueries = {
+        'queries': []
       };
-      pastQueries.queries.push(location);
+      newQueries.queries.push(location);
+      localStorage.setItem(storageItem, JSON.stringify(newQueries));
     } else {
-      pastQueries = JSON.parse(pastQueries);
-      if(pastQueries.queries.length>5) {
-        pastQueries.queries.shift();
+      newQueries = JSON.parse(pastQueries);
+      if(newQueries.queries.length>=5) {
+        newQueries.queries.shift();
       }
-      pastQueries.queries.push(location);
+      newQueries.queries.push(location);
+      localStorage.setItem(storageItem, JSON.stringify(newQueries));
     }
-    localStorage.setItem(storageItem, pastQueries.stringify);
   }
 
   function formattedDay() {
