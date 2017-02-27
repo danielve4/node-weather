@@ -13,7 +13,7 @@ http://www.modularscale.com/?22&px&1.125&web&text
 html {
   font-size: 1.125em;     /*18px / 16px = 1.125em*/
   line-height: 1.222em;   /*22px is 1 gridline at 18px | 22px / 18px = 1.222em*/
-  background-color: #03a9f4;
+  background-color: #EDEDED;
   color: #001A26;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 500;
@@ -40,9 +40,16 @@ h3 {
   padding-top: 0.488888888em; /*Half gridline | 11px / 22.5px = 0.488888888em*/
 }
 
-input {
-  display: block;
+#w-form {
   width: 100%;
+  position: relative;
+  margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
+  margin-bottom: 1.955555556em; /*Two gridlines*/
+  box-shadow: 0 0.2222222em 0.4444444em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
+  border-radius: 0.088888889em;
+}
+
+input {
   font-family: inherit;
   font-size: 100%;
   padding: 0;
@@ -57,34 +64,39 @@ input {
   font-size: 1.25em; /*22.5px / 18px = 1.25em*/
   line-height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
   height: 1.9555555556em; /* Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  border-left: 0.2272727273em solid #FFF;
-  border-right: 0.2272727273em solid #FFF;
-  border-radius: 0.088888889em;
+  width: calc(100% - 1.9555555556em);
+  padding-left: 0.22222222em;
+  padding-right: 0.22222222em;
+  border-bottom-left-radius: 0.088888889em;
+  border-top-left-radius: 0.088888889em;
   background: #FFF;
   color: #000;
   font-weight: 500;
   resize: none;
 }
 
-.w-is-active.yes {
-  box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
-}
+/*.w-is-active.yes {*/
+  /*box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);!*The shadow of the navigation bar 4px down, 8px blur radius*!*/
+/*}*/
 
 #w-search::-webkit-search-cancel-button{
   display: none;
 }
 
 #w-submit {
-  font-size: 1.25em; /*22.5px / 18px = 1.25em*/
-  line-height: 1.9555555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  height: 1.95555556em; /*Two gridlines: 44px / 22.5px = 1.9555555556em*/
-  border-radius: 0.088888889em; /*2px*/
-  box-shadow: 0 0.1818181818em 0.3636363636em rgba(0,0,0,0.26);/*The shadow of the navigation bar 4px down, 8px blur radius*/
-  background: #ffeb3b;
+  position: absolute;
+  border-top-right-radius: 0.11111111em; /*2px*/
+  border-bottom-right-radius: 0.111111em;
+  height: 2.44444444em; /*44px/18px=2.4444em*/
+  width: 2.44444444em;  /*44px/18px=2.4444em*/
+  background: url("../icons/ic_search_white_24px.svg") no-repeat;
+  background-size: 2.2222222em;
+  background-position: 50%;
+  background-color: #2196f3;
   color: #202208;
-  font-weight: 600;
-  margin-top: 0.977777778em; /*One gridline: 22px / 22.5px = 0.9777778em*/
-  margin-bottom: 1.955555556em; /*Two gridlines*/
+  right: 0;
+  top: 0;
+  font-weight: 500;
 }
 
 .card {
