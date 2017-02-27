@@ -5,6 +5,11 @@ var express = require('express')
 var weekDays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 var weatherKey = '10ec48a74229fb3f53027bee3f2bfb2b';
 var mapsKey = 'AIzaSyBumPhCSIrrBtwTIbeZZ5mdW7tNa_s5FXA';
+var allWeatherJSON = {
+  'location':'',
+  'current':'',
+  'past':'',
+};
 
 router.get('/:address,:numDays,:from', function(request, response) {
   var address = request.params.address;
@@ -18,6 +23,7 @@ router.get('/:address,:numDays,:from', function(request, response) {
           allData.past.days.sort(function(a, b) {
             return parseFloat(a.time) - parseFloat(b.time);
           });
+          allWeatherJSON.location = data.results[0].formatted_address;
           response.send(allData);
         });
       }
@@ -29,10 +35,6 @@ router.get('/:address,:numDays,:from', function(request, response) {
 
 function getAllWeather(lat, lng, numDays, from, callback) {
   var numCompleted = 0;
-  var allWeatherJSON = {
-    'current':'',
-    'past':''
-  };
 
   getCurrentWeather(lat, lng, function(current) {
     allWeatherJSON.current = current;
