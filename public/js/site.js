@@ -117,7 +117,7 @@ jQuery(function($) {
         url: '/weather/'+address+','+days+','+todayDate
       })).then(function(data) {
         if(data.status === "OK") {
-          addToHistory(address);
+          addToHistory(data.location);
           callback(data);
         } else {
           showNoResults(data.status);
@@ -204,12 +204,21 @@ jQuery(function($) {
 
   function addToHistory(location) {
     var newQueries;
+    var maxHistorySize=5;
+    var exists=false;
     newQueries = getHistory();
-    if(newQueries.queries.length>=5) {
-      newQueries.queries.shift();
+    for(var u=0;u<newQueries.queries.length;u++) {
+      if(location===newQueries.queries[u]) {
+        exists=true;
+      }
     }
-    newQueries.queries.push(location);
-    localStorage.setItem(storageItem, JSON.stringify(newQueries));
+    if(!exists) {
+      if(newQueries.queries.length>=maxHistorySize) {
+        newQueries.queries.shift();
+      }
+      newQueries.queries.push(location);
+      localStorage.setItem(storageItem, JSON.stringify(newQueries));
+    }
   }
 
   function formattedDay() {
@@ -225,3 +234,4 @@ jQuery(function($) {
     return dayFormat;
   }
 });
+
