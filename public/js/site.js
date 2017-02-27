@@ -95,6 +95,15 @@ jQuery(function($) {
       new Chartist.Line('#past-days-graph', pastDaysChart, chartOptions);
     }
 
+    function showNoResults(error) {
+      $('#error-message').empty();
+      if(error.length>0) {
+        $('#error-message').append(error);
+      } else {
+        console.log('Unknown error occurred');
+      }
+    }
+
     function getWeather(address, callback) {
       todayDate = Math.floor(Date.now() / 1000);
       var days = 3;
@@ -102,17 +111,24 @@ jQuery(function($) {
         type: 'GET',
         url: '/weather/'+address+','+days+','+todayDate
       })).then(function(data) {
-        addToHistory(address);
-        callback(data);
-      }, failure);
+        if(data.status === "OK") {
+          addToHistory(address);
+          callback(data);
+        } else {
+          showNoResults(data.status);
+        }
+      }, showNoResults);
     }
 
     $('#w-form').on('submit', function(e) {
       var address = ($('#w-search').val());
       if(address.length > 0) {
+        $('#error-message').empty();
         getWeather(address, function (data) {
           addCurrentWeatherChart(data);
         })
+      } else {
+        showNoResults('Please enter a location');
       }
       e.preventDefault();
     });
@@ -148,6 +164,7 @@ jQuery(function($) {
     });
 
     $('#history-list').on('click', '.history-element', function() {
+      $('.history-close-button').click();
       $('#w-search').val($(this).text());
       $('#w-search').submit();
     });
@@ -201,13 +218,5 @@ jQuery(function($) {
       'time':hourMinutes
     };
     return dayFormat;
-  }
-
-  function failure(error) {
-    if(error.length>0) {
-      console.log('Error: '+error);
-    } else {
-      console.log('Unknown error occurred');
-    }
   }
 });
