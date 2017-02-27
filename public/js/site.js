@@ -35,6 +35,9 @@ jQuery(function($) {
             '<li>' +
               'Currently: '+current.currently.summary +
             '</li>'+
+            '<li id="current-high-low">' +
+              'Low: '+Math.round(current.currently.low)+'° High: '+Math.round(current.currently.high)+'°'+
+            '</li>'+
           '</ul>'+
         '</li>'+
         '<li class="card">'+
