@@ -1,15 +1,10 @@
 $.noConflict();
 jQuery(function($) {
   var weekDays = [
-    'Sunday','Monday','Tueday',
-    'Wednesday','Thursday','Friday','Saturday'
-  ];
+    'Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
   var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
-  ];
+    "January", "February", "March","April", "May", "June", "July",
+    "August", "September", "October", "November", "December"];
   var storageItem = 'pastQueries';
   var todayDate;
   var pastQueries;
@@ -114,7 +109,6 @@ jQuery(function($) {
     $('#w-form').on('submit', function(e) {
       var address = ($('#w-search').val());
       if(address.length > 0) {
-        addToHistory(address);
         getWeather(address, function (data) {
           addCurrentWeatherChart(data);
         })
@@ -134,25 +128,27 @@ jQuery(function($) {
   function getHistory() {
     var pastQueriesJSON;
     pastQueries = localStorage.getItem(storageItem);
-    if(!pastQueries) {
-      pastQueriesJSON = {
-        'queries': []
-      };
-    } else {
+    try {
       pastQueriesJSON = JSON.parse(pastQueries);
+      if (pastQueriesJSON && typeof pastQueriesJSON === "object") {
+        return pastQueriesJSON;
+      }
     }
+    catch (e) {}
+    pastQueriesJSON = {
+      'queries': []
+    };
     return pastQueriesJSON;
   }
 
   function addToHistory(location) {
     var newQueries;
-    pastQueries = getHistory();
+    newQueries = getHistory();
     if(newQueries.queries.length>=5) {
       newQueries.queries.shift();
     }
     newQueries.queries.push(location);
     localStorage.setItem(storageItem, JSON.stringify(newQueries));
-
   }
 
   function formattedDay() {
@@ -165,7 +161,6 @@ jQuery(function($) {
       'month':monthNames[month],
       'time':hourMinutes
     };
-
     return dayFormat;
   }
 
