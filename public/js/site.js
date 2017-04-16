@@ -127,7 +127,7 @@ jQuery(function($) {
     }
 
     $('#w-form').on('submit', function(e) { //Listener for when form is submitted
-      var address = ($('#w-search').val()); //Get the text from search box
+      var address = $('#w-search').val().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""); //Get the text from search box
       if(address.length > 0) { //Only proceed if there is text in search box
         $('#error-message').empty(); //Erase any error messages if any are displayed
         getWeather(address, function (data) {
